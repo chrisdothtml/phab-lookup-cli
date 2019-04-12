@@ -1,0 +1,20 @@
+{
+  "name": "phab-lookup-cli",
+  "version": "0.0.1",
+  "description": "A convenience CLI for phabricator",
+  "author": "Chris Deacy <chrisdothtml@gmail.com>",
+  "bin": {
+    "phab": "cli.js"
+  },
+  "scripts": {
+    "format": "eslint . --fix",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "canduit": "^1.3.1"
+  },
+  "devDependencies": {
+    "@chrisdothtml/eslint-config": "^0.0.1",
+    "eslint": "^5.16.0"
+  }
+}
