@@ -11,20 +11,6 @@ yarn global add phab-lookup-cli
 npm i -g phab-lookup-cli
 ```
 
-## Configure
-
-This expects an `~/.arcrc` to exist with authentication info (if you use phab, you might already have one). e.g.
-
-```json
-{
-  "hosts": {
-    "https://phab-url.com/api/": {
-      "token": "..."
-    }
-  }
-}
-```
-
 ## Use
 
 **NOTE**: when providing a repo name, you can provide either the full name (e.g. scope/repo-name) or short name (e.g. repo-name). It'll try to pick the best match based on the search results, but you may need to specify the full name in some cases
@@ -69,4 +55,18 @@ phab repo repo-name
 
 phab repo asdf
 #> Repo not found: asdf
+```
+
+## Configure
+
+This expects an `~/.arcrc` to exist with authentication info (if you use phab, you might already have one). e.g.
+
+```json
+{
+  "hosts": {
+    "https://phab-url.com/api/": {
+      "token": "..."
+    }
+  }
+}
 ```
