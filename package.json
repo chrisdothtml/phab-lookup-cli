@@ -4,8 +4,11 @@
   "description": "A convenience CLI for phabricator",
   "author": "Chris Deacy <chrisdothtml@gmail.com>",
   "bin": {
-    "phab": "cli.js"
+    "phab": "lib/cli.js"
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "format": "eslint . --fix",
     "lint": "eslint ."
