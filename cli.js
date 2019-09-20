@@ -7,7 +7,7 @@ const canduit = require('canduit')
 const exec = (input) => execSync(input, { stdio: 'inherit' })
 
 class Commands {
-  constructor (phab) {
+  constructor(phab) {
     this._request = promisify(phab.exec.bind(phab))
 
     // aliases
@@ -16,33 +16,33 @@ class Commands {
     this.r = this.repo
   }
 
-  async _getRepoByName (repoName) {
+  async _getRepoByName(repoName) {
     const repos = await this._request('diffusion.repository.search', {
       order: 'oldest',
       constraints: {
         query: repoName,
       },
-    }).then(res => res.data)
+    }).then((res) => res.data)
 
     for (const repo of repos) {
       const { name } = repo.fields
 
       if (name === repoName || name.split('/')[1] === repoName) {
         return this._request('repository.query', {
-          ids: [ repo.id ],
-        }).then(res => res[0])
+          ids: [repo.id],
+        }).then((res) => res[0])
       }
     }
   }
 
-  async clone (argv) {
+  async clone(argv) {
     const repoName = argv[0]
     const gitArgs = argv.slice(1)
     const repo = await this._getRepoByName(repoName)
 
     if (repo) {
       const cloneUrl = repo.remoteURI
-      const extraArgs = gitArgs.length ? (' ' + gitArgs.join(' ')) : ''
+      const extraArgs = gitArgs.length ? ' ' + gitArgs.join(' ') : ''
 
       exec(`git clone ${cloneUrl + extraArgs}`)
     } else {
@@ -50,13 +50,13 @@ class Commands {
     }
   }
 
-  async repo ([ repoName ]) {
+  async repo([repoName]) {
     const repo = await this._getRepoByName(repoName)
 
     return repo ? repo.uri : `Repo not found: ${repoName}`
   }
 
-  async open (argv) {
+  async open(argv) {
     const url = await this.repo(argv)
 
     if (url.startsWith('https')) {
@@ -68,7 +68,7 @@ class Commands {
   }
 }
 
-async function main () {
+async function main() {
   const argv = process.argv.slice(2)
   const command = argv[0]
   const phab = await promisify(canduit)()
